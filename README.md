@@ -21,37 +21,24 @@ paps-fantasy/
   <h1>PAPS Fantasy – Commissioner Dashboard</h1>
 </header>
 
-<nav>
-  <button onclick="showTab('setup')">League Setup</button>
-  <button onclick="showTab('teams')">Teams</button>
-  <button onclick="showTab('lineups')">Weekly Lineups</button>
-  <button onclick="showTab('results')">Race Results</button>
-  <button onclick="showTab('wildcards')">Wildcards</button>
-  <button onclick="showTab('standings')">Standings</button>
-</nav>
+function showTab(tabId) {
+  document.querySelectorAll(".tab").forEach(tab => {
+    tab.classList.add("hidden");
+  });
 
-<main>
-  <section id="setup" class="tab"></section>
-  <section id="teams" class="tab hidden"></section>
-  <section id="lineups" class="tab hidden"></section>
-  <section id="results" class="tab hidden"></section>
-  <section id="wildcards" class="tab hidden"></section>
-  <section id="standings" class="tab hidden"></section>
-</main>
+  const activeTab = document.getElementById(tabId);
+  if (activeTab) {
+    activeTab.classList.remove("hidden");
+  }
 
-<script src="data.js"></script>
-<script src="scoring.js"></script>
-<script src="app.js"></script>
-</body>
-</html>
-
-
-const league = {
-  currentWeek: 1,
-  teams: [],
-  weeks: {},
-};
-
+  function render(activeTab) {
+  if (activeTab === "setup") renderSetup();
+  if (activeTab === "teams") renderTeams();
+  if (activeTab === "lineups") renderLineups();
+  if (activeTab === "results") renderResults();
+  if (activeTab === "wildcards") renderWildcards();
+  if (activeTab === "standings") renderStandings();
+}
 function save() {
   localStorage.setItem("papsFantasy", JSON.stringify(league));
 }
